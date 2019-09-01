@@ -1,15 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>FlowOverStackRails</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>FlowOverStackRails</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <!-- <script src="https://kit.fontawesome.com/7eaa1e7418.js"></script> -->
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <%= link_to "Flow OverStack", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+            Hola <%= current_user.email %>
+          </a>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Nueva Pregunta', new_question_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Salir', destroy_user_session_path, method: :delete, class: 'nav-link'%>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <%= link_to 'Ingresar', new_user_session_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Registrarse', new_user_registration_path, class: 'nav-link' %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+  <% flash.each do |msg_type, msg|%>
+  <div class="alert alert-<%= msg_type %> alert-dismissible fade show" role="alert"><%= msg %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <% end %>
+  <%= yield %>
+</body>
+
 </html>
