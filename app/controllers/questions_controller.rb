@@ -25,9 +25,9 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-    @question.user_id = current_user.id
+    @question.user = current_user
     if @question.save
-      redirect_to @question, notice: 'Question was successfully created.'
+      redirect_to @question, flash[:success] = 'Question was successfully created.'
     else
       render :new
     end
@@ -36,8 +36,8 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-    redirect_to @question, notice: 'Question was successfully updated.'
     if @question.update(question_params)
+      redirect_to @question, notice: 'Question was successfully updated.'
     else
       render :edit
     end

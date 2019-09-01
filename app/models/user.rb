@@ -19,6 +19,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
+  before_save { self.email = email.downcase }
   has_many :questions
+
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
+
+  # validates :name, presence: true, length: { maximum: 50 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false },
+                    format: { with: VALID_EMAIL_REGEX }
+  validates :password, presence: true, on: :create
+  validates :password, length: { minimum: 6, maximum: 20 }
 end

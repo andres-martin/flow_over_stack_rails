@@ -2,10 +2,8 @@
   <div class="row">
     <div class="col-sm-6 offset-sm-3 mt-3">
       <h1><%= form_title %></h1>
-
       <% if @question.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+      <div class="alert alert-danger">
         <ul>
           <% @question.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -14,7 +12,7 @@
       </div>
       <% end %>
 
-      <%= form_with model: @question do |f| %>
+      <%= form_for @question do |f| %>
       <div class="form-group">
         <%= f.label :title %>
         <%= f.text_field :title, class: "form-control input-lg", placeholder: "Ingresa el título de la pregunta"  %>
