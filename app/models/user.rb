@@ -21,6 +21,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   before_save { self.email = email.downcase }
   has_many :questions
+  has_many :answers
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
