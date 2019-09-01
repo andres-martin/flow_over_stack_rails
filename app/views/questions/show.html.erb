@@ -4,7 +4,20 @@
       <%= link_to 'Back', root_path %>
       <h1><%= @question.title %></h1>
       <p class="mb-5"><%= @question.content %></p>
-
+      <% @question.answers.each do |answer| %>
+      <div><%= answer.content %></div>
+      <% end %>
+      <% if user_signed_in? %>
+      <%= form_for [@question, @question.answers.build] do |f| %>
+      <div class="form-group mt-2">
+        <%= f.text_area :content, class: "form-control", placeholder: "Write
+              your answer" %>
+        <div class="text-left mt-2">
+          <%= f.submit 'Submit', class: 'btn btn-primary' %>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
     </div>
   </div>
 </div>
