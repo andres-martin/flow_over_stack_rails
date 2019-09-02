@@ -2,16 +2,6 @@
 
 class AnswersController < ApplicationController
  
-  # def create
-  #   question = Question.find(params[:question_id])
-  #   if question.answers.create(answers_params)
-  #     flash[:info] = 'Answer created'
-  #     redirect_to question
-  #   else
-  #     render :question
-  #   end
-  # end
-
   def create
     question = Question.find(params[:question_id])
     answer = question.answers.create(answers_params)
@@ -19,10 +9,12 @@ class AnswersController < ApplicationController
       flash[:info] = 'Answer created'
       redirect_to question
     else
-      flash[:alert] = "Answer can't be empty"
+      # flash[:danger] = "Answer can't be blank"
+      flash[:danger] = "Answer " + answer.errors[:content][0]
       redirect_to question
     end  
   end
+  
   private
 
   def answers_params

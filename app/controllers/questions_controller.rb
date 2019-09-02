@@ -27,7 +27,8 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.user = current_user
     if @question.save
-      redirect_to @question, flash[:success] = 'Question was successfully created.'
+      flash[:success] = 'Question was successfully created.'
+      redirect_to @question
     else
       render :new
     end
@@ -37,7 +38,8 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1.json
   def update
     if @question.update(question_params)
-      redirect_to @question, notice: 'Question was successfully updated.'
+      flash[:info] = 'Question was successfully updated.'
+      redirect_to @question
     else
       render :edit
     end
@@ -47,7 +49,8 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.json
   def destroy
     @question.destroy
-    redirect_to questions_url, notice: 'Question was successfully destroyed.'
+    flash[:info] = 'Question was successfully destroyed.'
+    redirect_to questions_url
   end
 
   private
