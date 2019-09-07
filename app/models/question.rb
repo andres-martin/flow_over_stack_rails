@@ -14,7 +14,8 @@
 
 class Question < ApplicationRecord
   belongs_to :user
+  has_many :answers, :dependent => :delete_all
 
   validates :title, :content, presence: true
-  validates :content, length: { minimum: 250 }
+  validates :content, length: { minimum: 200 }
 end
