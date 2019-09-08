@@ -4,6 +4,14 @@
       <%= link_to 'Back', root_path %>
       <h1><%= @question.title %></h1>
       <p class="mb-5"><%= @question.content %></p>
+      <%= render partial: "comments/comments", object: @question, as: 'commentable' %>
+  
+      <% if user_signed_in? %>
+        <h4>Comentar</h4>
+        <%= render partial: "comments/form", object: @question, as: 'commentable' %>
+       
+      <% end %>
+      
       <h4><%= @question.answers.count %> Answer(s)</h4>
       <hr>
        <% if @question.answers.count == 0 %>
@@ -11,9 +19,10 @@
       <% end %>
       <% @question.answers.each do |answer| %>
         <div><%= answer.content %></div>
+        <%= render partial: "comments/comments", object: answer, as: 'commentable' %>
       <% end %>
 
- 
+      
       <% if user_signed_in? %>
       <h4 class="mt-5">Your answer</h4>
      
