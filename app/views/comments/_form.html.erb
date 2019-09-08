@@ -1,6 +1,8 @@
- <% form_for [commentable, Comment.new] do |f|%>
+ <%= form_for [comment, Comment.new] do |f|%>
     <div class="form-group">
-        <%= f.text_area :text, class: "form-control", rows: 5,  placeholder: "Add a comment" %>
-        <%= f.submit 'Submit comment', class: 'btn btn-primary' %>
+        <%= f.text_area :text, class: "form-control", rows: 2,  placeholder: "Add a comment" %>
+        <div class="text-right mt-2">
+            <%= f.submit 'Submit comment', class: 'btn btn-primary btn-sm' %>
+        </div>
     </div>
 <% end %>
