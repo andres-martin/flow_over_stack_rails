@@ -6,13 +6,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :questions do
     resources :comments, only: [:create]
-    resources :answers, only: [:create] do
-      resources :comments, only: [:create] 
-    end
+    resources :answers, only: [:create]
   end
-  # resources :answers, only: [:create] do
-  #   # resources :comments, only: [:create], module: :answers
-  #   resources :comments, only: [:create]
-  # end
+  resources :answers, only: [:create] do
+    # resources :comments, only: [:create], module: :answers
+    resources :comments, only: [:create]
+  end
   # resources :comments, only: [:create]
 end

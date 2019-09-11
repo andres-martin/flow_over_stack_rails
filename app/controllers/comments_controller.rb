@@ -8,19 +8,25 @@ class CommentsController < ApplicationController
 
     def create
         @comment = @commentable.comments.new(comment_params)
-        # @comment.user = current_user
-        # @question = Question.find(params[:id])
-        # @question = Question.find(params[:question_id])
         if @comment.save
             flash[:info] = "Comment created"
-            redirect_to @commentable         
+            if params[:answer_id]
+                redirect_to @commentable.question
+            else  
+                redirect_to @commentable
+            end
         else
+            # @errorContent << @comment.errors[:text][0] if @comment.errors.any?
             flash[:danger] = "Comment " + @comment.errors[:text][0]
-            # if params[:answer_id]
-            #   redirect_to @question
-            # else  
-              redirect_to @commentable
-            # end
+            if params[:answer_id]
+                redirect_to @commentable.question
+            else  
+                redirect_to @commentable
+            end
+            # render :errors
+            # format.js
+            # redirect_to @commentable 
+            # render 'create.js.erb'
         end
     end
 
