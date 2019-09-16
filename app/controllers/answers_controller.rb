@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
- 
+  before_action :authenticate_user!
   def create
     question = Question.find(params[:question_id])
     answer = question.answers.create(answers_params)

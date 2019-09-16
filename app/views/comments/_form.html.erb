@@ -1,0 +1,9 @@
+ <%= form_for [comment, Comment.new] do |f|%>
+    <div class="form-group">
+        <%= f.text_area :text, class: "form-control", rows: 2,  placeholder: "Add a comment" %>
+        <span id="commentBlock help-block"></span>
+        <div class="text-right mt-2">
+            <%= f.submit 'Submit comment', class: 'btn btn-primary btn-sm', remote: true %>
+        </div>
+    </div>
+<% end %>
