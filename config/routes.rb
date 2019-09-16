@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   resources :questions do
     resources :comments, only: [:create]
     resources :answers, only: [:create]
+    member do
+      put "like", to: "questions#upvote"
+      put "dislike", to: "questions#downvote"
+    end
   end
   resources :answers, only: [:create] do
     # resources :comments, only: [:create], module: :answers
