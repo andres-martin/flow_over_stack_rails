@@ -38,7 +38,7 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1.json
   def update
     if @question.update(question_params)
-      flash[:info] = 'Question was successfully updated.'
+      flash[:info] = 'Question successfully updated.'
       redirect_to @question
     else
       render :edit
