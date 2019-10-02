@@ -63,10 +63,6 @@ class QuestionsController < ApplicationController
     redirect_to root_path
   end
 
-  def score
-    return (self.get_upvotes.size - self.get_downvotes.size)
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

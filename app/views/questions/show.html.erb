@@ -18,17 +18,19 @@
       <% end %>
       <% @question.answers.each do |answer| %>
         <div><%= answer.content %></div>
+        <%= link_to 'upvote', like_answer_path(answer), method: :put %>
+        <%= answer.get_likes.size %>
+        <%= link_to 'downvote', dislike_answer_path(answer), method: :put %>  
+        
         <%= render partial: "comments/comments", object: answer, as: 'commentable' %>
         <hr>
         <%= render partial: "comments/form", locals: {comment: answer} if user_signed_in?  %>
       <% end %>
-
       
       <% if user_signed_in? %>
       
       <h4 class="mt-5">Your answer</h4>
-     
-      <hr>
+        <hr>
         <%= form_for [@question, @question.answers.build] do |f| %>
           <div class="form-group mt-2">
             <%= f.text_area :content, class: "form-control", rows: 5,  placeholder: "Write your answer" %>

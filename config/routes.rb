@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   resources :answers, only: [:create] do
     # resources :comments, only: [:create], module: :answers
     resources :comments, only: [:create]
+    member do
+      put "like", to: "answers#upvote"
+      put "dislike", to: "answers#downvote"
+    end
   end
   # resources :comments, only: [:create]
 end
