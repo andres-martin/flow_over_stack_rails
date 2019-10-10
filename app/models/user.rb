@@ -20,8 +20,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   before_save { self.email = email.downcase }
-  has_many :questions
-  has_many :answers
+  has_many :questions, dependent: :destroy
+  has_many :answers, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
 
@@ -30,4 +30,6 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX }
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 6, maximum: 20 }
+
+  acts_as_voter
 end

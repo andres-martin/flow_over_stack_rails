@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 # devise for authentication
 gem 'devise'
+# act as votable gem to generate votes
+gem 'acts_as_votable'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

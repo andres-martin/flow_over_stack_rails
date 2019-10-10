@@ -17,6 +17,12 @@
         <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
       </div>
+      
+      <%= link_to 'upvote', like_question_path(question), method: :put %>
+        <% @counter = question.get_likes.size %>
+        <%= @counter %>
+      <%= link_to 'downvote', dislike_question_path(question), method: :put %>
+      
       <% end %>
     </div>
   </div>

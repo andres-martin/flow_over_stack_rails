@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
-  before_action :set_question, only: %i[show edit update destroy]
+  before_action :set_question, only: %i[show edit update destroy upvote downvote score]
   before_action :authenticate_user!, except: %i[index show]
   # GET /questions
   # GET /questions.json
@@ -38,7 +38,7 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1.json
   def update
     if @question.update(question_params)
-      flash[:info] = 'Question was successfully updated.'
+      flash[:info] = 'Question successfully updated.'
       redirect_to @question
     else
       render :edit
@@ -51,6 +51,16 @@ class QuestionsController < ApplicationController
     @question.destroy
     flash[:info] = 'Question was successfully destroyed.'
     redirect_to questions_url
+  end
+
+  def upvote
+    @question.upvote_by current_user
+    redirect_to root_path
+  end
+
+  def downvote
+    @question.downvote_by current_user
+    redirect_to root_path
   end
 
   private
