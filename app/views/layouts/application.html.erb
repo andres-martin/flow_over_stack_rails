@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
     <%= link_to "Flow OverStack", root_path, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,10 @@
         </li>
         <% end %>
       </ul>
+      <%= form_tag questions_path, class: "form-inline my-2 my-lg-0", method: :get do %>
+        <%= text_field_tag :q, params[:q], class: "form-control mr-sm-2", placeholder: 'Search' %>
+        <%= submit_tag 'Search', name: nil, class: "btn btn-outline-success my-2 my-sm-0" %>
+      <% end %>
     </div>
   </nav>
   <% flash.each do |msg_type, msg|%>
