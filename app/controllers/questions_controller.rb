@@ -6,7 +6,11 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all.order('created_at DESC')
+    unless !params[:q]
+      @questions = Question.where('title LIKE ?', "%#{params[:q]}%")
+    else
+      @questions = Question.all.order('created_at DESC')  
+    end
   end
 
   # GET /questions/1
@@ -72,6 +76,6 @@ class QuestionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def question_params
-    params.require(:question).permit(:title, :content)
+    params.require(:question).permit(:title, :content, :q)
   end
-end
+end 
