@@ -14,7 +14,11 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5'
 # gem 'bootstrap', '~> 4.3.1'
 # gem 'jquery-rails'
-
+gem 'html-pipeline'
+gem 'github-markdown'
+gem 'gemoji'
+gem 'commonmarker'
+gem 'sanitize'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
