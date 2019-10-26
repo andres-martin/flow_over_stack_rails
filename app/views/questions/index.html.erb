@@ -9,19 +9,35 @@
       
       <% @questions.each do |question| %>
       <hr>
-      <h4><%= link_to  "#{question.title}", question %></h4>
-      <p class="publish_by">Published by <%= question.user.email %> <%= time_ago_in_words(question.created_at) %></p>
-      <div class="mb-3">
-        <% if user_signed_in? && current_user == question.user %>
-        <%= link_to 'Edit', edit_question_path(question) %>
-        <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
-      </div>
-      <div class="mb-2">
-        <%= link_to 'upvote', like_question_path(question), method: :put %>
-          <% @counter = question.get_likes.size %>
-          <%= @counter %>
-        <%= link_to 'downvote', dislike_question_path(question), method: :put %>
+      <div class="row">
+        <div class="col-sm-2">
+            <% @counter = question.get_likes.size %>
+            <div class="text-center">
+              <h4>
+                <%= @counter %>
+              </h4>
+              <p class="text-secondary">votes</p>
+            </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="text-center">
+            <h4>
+              <%= question.answers.size %> 
+            </h4>
+            <p class="text-secondary">answers</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <h4 class="question-title"><%= link_to  "#{question.title}", question %></h4>
+          <p class="publish_by text-secondary">Published by <%= question.user.email %> <%= time_ago_in_words(question.created_at) %></p>
+        </div>
+        <div class="col-sm-1">
+            <% if user_signed_in? && current_user == question.user %>
+            <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_question_path(question), class: 'mr-1' %>
+            <%= link_to '<i class="fas fa-trash"></i>'.html_safe, question, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+        </div>
+
       </div>
       <% end %>
     </div>

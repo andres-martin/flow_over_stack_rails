@@ -2,29 +2,55 @@
   <div class="row">
     <div class="col-sm-10 offset-sm-1">
       <%= link_to 'Back', root_path %>
-      <h1><%= @question.title %></h1>
-      <p class="mb-5"><%= markdownify(@question.content) %></p>
-      <%= render partial: "comments/comments", object: @question, as: 'commentable' %>
-        
-      <% if user_signed_in? %>
-        <h5>Comentar</h5>
-        <%= render partial: "comments/form", locals: {comment: @question} %>
-      <% end %>
-      
+      <h1 class="mt-2" ><%= @question.title %></h1>
+      <div class="row">    
+        <div class="col-sm-1">
+          <div class="text-center">         
+            <%= link_to '<i class="fas fa-caret-up fa-3x"></i>'.html_safe, like_question_path(@question), method: :put %>
+          </div> 
+            <h3 class="text-center"><%= @question.get_likes.size %></h3>
+          <div class="text-center">
+            <%= link_to '<i class="fas fa-caret-down fa-3x"></i>'.html_safe, dislike_question_path(@question), method: :put %>  
+          </div>
+        </div>
+
+        <div class="col-sm-11">
+          <p><%= markdownify(@question.content) %></p>
+          <hr>
+          <%= render partial: "comments/comments", object: @question, as: 'commentable' %>
+
+            <%= render partial: "comments/form", locals: {comment: @question} %>
+        </div>
+      </div>
+
       <h4><%= @question.answers.count %> Answer(s)</h4>
       <hr>
        <% if @question.answers.count == 0 %>
         <p class="ml-3 text-secondary">Do you think you have the right answer to this question?</p>
       <% end %>
       <% @question.answers.each do |answer| %>
-        <div><%= markdownify answer.content %></div>
-        <%= link_to 'upvote', like_answer_path(answer), method: :put %>
-        <%= answer.get_likes.size %>
-        <%= link_to 'downvote', dislike_answer_path(answer), method: :put %>  
+      <div class="row">
+        <div class="col-sm-1">
+          <div class="text-center">
+            <%= link_to '<i class="fas fa-caret-up fa-2x"></i>'.html_safe, like_answer_path(answer), method: :put %>
+          </div>
+          <h4 class="text-center">
+            <%= answer.get_likes.size %>
+          </h4>
+          <div class="text-center">
+            <%= link_to '<i class="fas fa-caret-down fa-2x"></i>'.html_safe, dislike_answer_path(answer), method: :put %>  
+          </div>
+        </div>
+
+        <div class="col-sm-11">
+          <%= markdownify answer.content %>
+          <%= render partial: "comments/comments", object: answer, as: 'commentable' %>
+          <hr>
+          <%= render partial: "comments/form", locals: {comment: answer}  %>
+        </div>
+
+      </div>
         
-        <%= render partial: "comments/comments", object: answer, as: 'commentable' %>
-        <hr>
-        <%= render partial: "comments/form", locals: {comment: answer} if user_signed_in?  %>
       <% end %>
       
       <% if user_signed_in? %>
