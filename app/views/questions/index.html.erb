@@ -16,7 +16,7 @@
               <h4>
                 <%= @counter %>
               </h4>
-              <p style="color: #7f7f7f;">votes</p>
+              <p class="text-secondary">votes</p>
             </div>
         </div>
         <div class="col-sm-2">
@@ -24,19 +24,20 @@
             <h4>
               <%= question.answers.size %> 
             </h4>
-            <p style="color: #7f7f7f;">answers</p>
+            <p class="text-secondary">answers</p>
           </div>
         </div>
-        <div class="col-sm-8">
-          <h4><%= link_to  "#{question.title}", question, style: "color: #EB601B;" %></h4>
-          <p class="publish_by" style="color: #7f7f7f;">Published by <%= question.user.email %> <%= time_ago_in_words(question.created_at) %></p>
-          <div class="mb-3">
+        <div class="col-sm-6">
+          <h4 class="question-title"><%= link_to  "#{question.title}", question %></h4>
+          <p class="publish_by text-secondary">Published by <%= question.user.email %> <%= time_ago_in_words(question.created_at) %></p>
+        </div>
+        <div class="col-sm-1">
             <% if user_signed_in? && current_user == question.user %>
-            <%= link_to 'Edit', edit_question_path(question) %>
-            <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_question_path(question) %>
+            <%= link_to '<i class="fas fa-trash"></i>'.html_safe, question, method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
-          </div>
         </div>
+
       </div>
       <% end %>
     </div>
