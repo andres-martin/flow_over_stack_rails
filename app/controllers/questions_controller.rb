@@ -59,12 +59,12 @@ class QuestionsController < ApplicationController
 
   def upvote
     @question.upvote_by current_user
-    redirect_to root_path
+    redirect_to @question
   end
 
   def downvote
     @question.downvote_by current_user
-    redirect_to root_path
+    redirect_to @question
   end
 
   private
