@@ -12,16 +12,24 @@
       <div class="row">
         <div class="col-sm-2">
             <% @counter = question.get_likes.size %>
-            <%= @counter %>
-            <p>votes</p> 
+            <div class="text-center">
+              <h4>
+                <%= @counter %>
+              </h4>
+              <p style="color: #7f7f7f;">votes</p>
+            </div>
         </div>
         <div class="col-sm-2">
-          <%= question.answers.size %> 
-          <p>answers</p>
+          <div class="text-center">
+            <h4>
+              <%= question.answers.size %> 
+            </h4>
+            <p style="color: #7f7f7f;">answers</p>
+          </div>
         </div>
         <div class="col-sm-8">
-          <h4><%= link_to  "#{question.title}", question %></h4>
-          <p class="publish_by">Published by <%= question.user.email %> <%= time_ago_in_words(question.created_at) %></p>
+          <h4><%= link_to  "#{question.title}", question, style: "color: #EB601B;" %></h4>
+          <p class="publish_by" style="color: #7f7f7f;">Published by <%= question.user.email %> <%= time_ago_in_words(question.created_at) %></p>
           <div class="mb-3">
             <% if user_signed_in? && current_user == question.user %>
             <%= link_to 'Edit', edit_question_path(question) %>
