@@ -33,7 +33,7 @@
         </div>
         <div class="col-sm-1">
             <% if user_signed_in? && current_user == question.user %>
-            <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_question_path(question) %>
+            <%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_question_path(question), class: 'mr-1' %>
             <%= link_to '<i class="fas fa-trash"></i>'.html_safe, question, method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
         </div>
