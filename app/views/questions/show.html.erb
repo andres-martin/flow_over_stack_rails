@@ -6,7 +6,7 @@
       <div class="row">    
         <div class="col-sm-1">
           <div class="text-center">        
-          <% voted = 'voted' if current_user.voted_up_on? @question %> 
+          <% voted = 'voted' if current_user && (current_user.voted_up_on? @question) %> 
           <%= link_to "<i class='fas fa-caret-up fa-3x #{voted}'></i>".html_safe, like_question_path(@question), method: :put %>
           </div> 
             <h3 class="text-center <%= voted %>"><%= @question.get_likes.size %></h3>
@@ -32,7 +32,7 @@
       <div class="row">
         <div class="col-sm-1">
           <div class="text-center">
-            <% voted_answer = 'voted' if current_user.voted_up_on? answer %> 
+            <% voted_answer = 'voted' if current_user && (current_user.voted_up_on? answer) %> 
             <%= link_to "<i class='fas fa-caret-up fa-2x #{voted_answer}'></i>".html_safe, like_answer_path(answer), method: :put %>
           </div>
           <h4 class="text-center <%= voted_answer %>">
