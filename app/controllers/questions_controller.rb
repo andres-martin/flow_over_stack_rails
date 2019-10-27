@@ -8,6 +8,7 @@ class QuestionsController < ApplicationController
   def index
     unless !params[:q]
       @questions = Question.where('title LIKE ?', "%#{params[:q]}%")
+                   .or(Question.where('content LIKE ?', "%#{params[:q]}%"))
     else
       @questions = Question.all.order('created_at DESC')  
     end
@@ -31,7 +32,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.user = current_user
     if @question.save
-      flash[:success] = 'Question was successfully created.'
+      flash[:success] = 'Question successfully created.'
       redirect_to @question
     else
       render :new
@@ -53,17 +54,17 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1.json
   def destroy
     @question.destroy
-    flash[:info] = 'Question was successfully destroyed.'
+    flash[:info] = 'Question successfully deleted.'
     redirect_to questions_url
   end
 
   def upvote
-    @question.upvote_by current_user
+    @question.like_by current_user
     redirect_to @question
   end
 
   def downvote
-    @question.downvote_by current_user
+    @question.dislike_by current_user
     redirect_to @question
   end
 

@@ -53,6 +53,8 @@
     </div>
   </nav>
   <% flash.each do |msg_type, msg|%>
+  <% msg_type = 'danger' if msg_type == 'alert' %>
+  <% msg_type = 'info' if msg_type == 'notice' %>
   <div class="alert alert-<%= msg_type %> alert-dismissible fade show" role="alert"><%= msg %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
